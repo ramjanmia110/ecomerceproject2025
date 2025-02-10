@@ -14,7 +14,10 @@ export default {
       },
       colors: {
         'primary': '#767676',
-      }
+        'secondary': '#262626',
+        'third': '#F5F5F3',
+      },
+   
     },
   },
   plugins: [],

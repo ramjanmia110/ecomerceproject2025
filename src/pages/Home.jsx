@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navbar } from '../layouts/Navbar'
+import ShopCatagory from '../layouts/ShopCatagory'
 
 
 
@@ -7,6 +8,9 @@ import { Navbar } from '../layouts/Navbar'
 
 export const Home = () => {
   return (
+ <>
    <Navbar/>
+   <ShopCatagory/>
+ </>
   )
 }
