@@ -1,7 +1,4 @@
 import React from 'react'
-import { Navbar } from '../layouts/Navbar'
-import ShopCatagory from '../layouts/ShopCatagory'
-import Footer from '../layouts/Footer'
 import Image from '../components/Image'
 import bannerImage from '../assets/banner.jpg'
 import { Link } from 'react-router-dom'
@@ -39,8 +36,7 @@ import producttwelve from '../assets/image10.png'
 export const Home = () => {
   return (
  <>
-   <Navbar/>
-   <ShopCatagory/>
+  
    <>
    <Link to='https://www.facebook.com/'><Image className='w-full'  src={bannerImage}/></Link>
     <section className='bg-[#F0F0F0] py-[22px] border border-b-[#F0F0F0]'>
@@ -150,7 +146,7 @@ export const Home = () => {
         </div>
     </Container>
    </section>
-   <Footer/>
+  
  </>
   )
 }
