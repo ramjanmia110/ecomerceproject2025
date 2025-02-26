@@ -7,6 +7,7 @@ import { IoIosSearch } from "react-icons/io";
 import { IoPerson } from "react-icons/io5";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FaShoppingCart } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const ShopCatagory = () => {
   return (
@@ -32,7 +33,7 @@ const ShopCatagory = () => {
                     
                        
                             <span className='flex gap-x-[5px]'>
-                            <IoPerson className='w-[15px] text-secondary cursor-pointer' />
+                           <Link to='login'> <IoPerson className='w-[15px] text-secondary cursor-pointer' /></Link>
                             <IoMdArrowDropdown className='w-[15px] text-secondary cursor-pointer' />
                             </span>
                             <FaShoppingCart className='w-[15px] text-secondary cursor-pointer' />
