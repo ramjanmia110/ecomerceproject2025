@@ -10,7 +10,7 @@ function Items({ currentItems }) {
         currentItems.map((item) => (
           <div key={item.id}>
             {console.log(item)}
-           <ProductList src={item.images[0]} text={item.title} price={item.price} color={item.rating}/>
+           <ProductList src={item.images[0]} text={item.title} price={`$${item.price}`} color={item.rating}/>
           </div>
         ))}
 
