@@ -11,9 +11,11 @@ const ProductList = ({src,text,price,color}) => {
        <div>
        <p className='bg-secondary text-white px-[32px] py-[9px] absolute top-0 left-0 font-dm text-[14px] font-[700] ml-[20px] mt-[20px]'>New</p>
      </div>
-    <img src={src} alt="" />
+    <div className='w-[370px] h-[370px] bg-gray-100'>
+    <img className='w-full h-full' src={src} alt="" />
+    </div>
      <div>
-        <div className='w-[370px] h-[200px] bg-white absolute -bottom-[15%] left-0 group-hover:bottom-0 duration-300 opacity-0 group-hover:opacity-100'>
+        <div className='w-[370px] h-[200px] bg-white cursor-pointer absolute -bottom-[3%] left-0 group-hover:bottom-0 duration-300 opacity-0 group-hover:opacity-100'>
           
             <Flex className='flex-col items-end justify-end pt-[30px] pr-[30px]'>
                 <Flex className='items-center gap-x-[15px] pb-[21px]'>

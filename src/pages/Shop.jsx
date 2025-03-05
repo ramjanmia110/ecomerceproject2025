@@ -4,6 +4,7 @@ import Flex from '../components/Flex'
 import Catagory from '../components/Catagory'
 import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
+import Pagination from '../components/Pagination';
 
 const Shop = () => {
   const [show,setShow] =useState(false)
@@ -21,6 +22,14 @@ const Shop = () => {
   const colorShow =()=>{
     setColor(!color)
   }
+
+ 
+
+  const [price,setPrice] =useState(false)
+
+  const priceShow=()=>{
+    setPrice(!price)
+  }
   return (
    <section>
     <Container>
@@ -36,10 +45,12 @@ const Shop = () => {
       </Flex>
       </div> 
       <Flex>
-      <div className='w-[30%]'>
+      <div className='w-[20%] mr-[40px]'>
         <h2 className='font-dm text-[20px] font-[700] text-secondary'>Shop by Category</h2>
-        <div onClick={showProduct} className=' mr-[21px] mt-[35px] border-b border-[#F0F0F0] pb-[41px]'>
-          <Catagory text='Phone accessories' type={show ? "minusIcon":"plusIcon"}/>
+        <div  className=' mr-[21px] mt-[35px] border-b border-[#F0F0F0] pb-[41px]'>
+         <span onClick={showProduct}>
+         <Catagory text='Phone accessories' type={show ? "minusIcon":"plusIcon"}/>
+         </span>
           {
             show &&   <div className='bg-green-100 p-4 m-2'>
             <Catagory text='iPhone 16 Plus 256GB'/>
@@ -55,8 +66,10 @@ const Shop = () => {
         <Catagory text='Auto and Parts'/>
         </div>
 
-        <div onClick={showCloth} className='mr-[21px] mt-[20px] border-b border-[#F0F0F0] pb-[49px]'>
-        <Catagory text='Clothing' type={cloth ? "minusIcon":"plusIcon"}/>
+        <div  className='mr-[21px] mt-[20px] border-b border-[#F0F0F0] pb-[49px]'>
+       <span onClick={showCloth}>
+       <Catagory text='Clothing' type={cloth ? "minusIcon":"plusIcon"}/>
+       </span>
         {cloth &&   <div className='bg-green-100 p-4 m-4 '>
         <Catagory text=' Sailor'/>
         <Catagory text=' Aarong'/>
@@ -74,13 +87,15 @@ const Shop = () => {
         <Catagory text='Pet products'/>
         </div>
 
-        <div onClick={colorShow} className='pt-[35px] pb-[35px] mr-[21px]'>
+        <div  className='pt-[35px] pb-[35px] mr-[21px]'>
         <Flex className='items-center justify-between'>
         <h2 className='font-dm text-[20px] font-[700] text-secondary'>Shop by Color</h2>
         
-        { color?<IoMdArrowDropdown className='text-[20px] text-secondary'   /> 
+<span onClick={colorShow}>
+{ color?<IoMdArrowDropdown className='text-[20px] text-secondary'   /> 
        :<IoMdArrowDropup className='text-[20px] text-secondary' />
 }
+</span>
        
         </Flex>
             {color &&  <div>
@@ -119,12 +134,82 @@ const Shop = () => {
           </Flex>
         </div>
        </div> }
+
+
+
+
+       
       
       </div>
+
+      
+
+      <div  className='pt-[35px] pb-[35px] mr-[21px]'>
+        <Flex className='items-center justify-between'>
+        <h2 className='font-dm text-[20px] font-[700] text-secondary'>Shop by Price</h2>
+        
+      <span onClick={priceShow}>
+      { price?<IoMdArrowDropdown className='text-[20px] text-secondary'   /> 
+       :<IoMdArrowDropup className='text-[20px] text-secondary' />
+       }
+      </span>
+       
+        </Flex>
+            {price &&  <div>
+       <div className='pt-[35px] border-b border-[#F0F0F0] pb-[19px]'>
+          <Flex className='items-center gap-x-[10px]'>
+          
+          <span className='text-[16px] font-dm font-[400] text-primary'>$0.00 - $9.99</span>
+          </Flex>
+        </div>
+
+        <div className='pt-[35px] border-b border-[#F0F0F0] pb-[19px]'>
+          <Flex className='items-center gap-x-[10px]'>
+         
+          <span className='text-[16px] font-dm font-[400] text-primary'>$10.00 - $19.99</span>
+          </Flex>
+        </div>
+
+        <div className='pt-[35px] border-b border-[#F0F0F0] pb-[19px]'>
+          <Flex className='items-center gap-x-[10px]'>
+          
+          <span className='text-[16px] font-dm font-[400] text-primary'>$20.00 - $29.99</span>
+          </Flex>
+        </div>
+
+        <div className='pt-[35px] border-b border-[#F0F0F0] pb-[19px]'>
+          <Flex className='items-center gap-x-[10px]'>
+          
+          <span className='text-[16px] font-dm font-[400] text-primary'>$30.00 - $39.99</span>
+          </Flex>
+        </div>
+
+        <div className='pt-[35px] border-b border-[#F0F0F0] pb-[19px]'>
+          <Flex className='items-center gap-x-[10px]'>
+         
+          <span className='text-[16px] font-dm font-[400] text-primary'>$40.00 - $69.99</span>
+          </Flex>
+        </div>
+       </div> }
+
+
+
+
+       
+      
       </div>
 
+      </div>
+      
+
      
-      <div className='w-[70%] bg-black'>dddd</div>
+      <div className='w-[75%] flex'>
+      
+        <Pagination itemsPerPage={6}/>
+        
+       
+      </div>
+     
       </Flex>
     </Container>
    </section>
