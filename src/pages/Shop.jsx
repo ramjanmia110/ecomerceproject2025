@@ -12,22 +12,56 @@ const Shop = () => {
   const [price, setPrice] = useState(false)
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [priceRanges, setPriceRanges] = useState([]); 
+  const [selectedPriceRange, setSelectedPriceRange] = useState(null);
  
 
   useEffect(() => {
     fetch('https://dummyjson.com/products')
       .then((res) => res.json())
-      .then((res) => setProducts(res.products))
+      .then((res) =>{
+        setProducts(res.products)
+
+      const prices = res.products.map((item)=>item.price);
+      const minprice =Math.min(...prices);
+      const maxPrice =Math.max(...prices);
+
+      const ranges =[
+        {label:`$${minprice} -$${minprice + 20}`, min:minprice,max:minprice + 20},
+        {label:`$${minprice + 21} -$${minprice + 40}`, min:minprice + 21,max:minprice + 40},
+        {label:`$${minprice + 41} -$${minprice + 60}`, min:minprice + 41,max:minprice + 60},
+        {label:`$${minprice + 61} -$${maxPrice}`, min:minprice + 61,max:maxPrice}
+      ]
+
+      setPriceRanges(ranges)
+      } 
+        )
       .catch((error) => console.error("Error fetching data:", error));
   }, []); 
 
-  const filteredProduct = selectedCategory
-    ? products.filter((item) => item.category === selectedCategory) 
-    : products;
 
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-    
+  
+
+
+ 
+  const filteredProduct = products.filter((item) => {
+    const categoryMatch = selectedCategory ? item.category === selectedCategory : true;
+    const priceMatch = selectedPriceRange ? 
+      item.price >= selectedPriceRange.min && item.price <= selectedPriceRange.max
+      : true;
+    return categoryMatch && priceMatch;
+  });
+
+ 
+ const handleCategoryClick = (category) => {
+    setSelectedCategory(category); 
+    setSelectedPriceRange(null);  
+  };
+ 
+
+  const handlePriceRangeClick = (range) => {
+    setSelectedPriceRange(range); 
+    setSelectedCategory(null);  
   };
 
 
@@ -145,9 +179,19 @@ const Shop = () => {
               </span>
             </Flex>
             {price &&  <div>
-              {/* Price filters */}
-              <div className='pt-[35px] border-b border-[#F0F0F0] pb-[19px]'>
-                <span className='text-[16px] font-dm font-[400] text-primary'>$0.00 - $9.99</span>
+              
+              <div className='pt-[35px]'>
+               <Flex className='flex-col gap-y-4'>
+               {
+                 priceRanges.map((items, index) => (
+                  <span onClick={()=>handlePriceRangeClick(items)} key={index} className='text-[16px] font-dm font-[400] text-primary border-b border-[#F0F0F0] pb-[19px] cursor-pointer hover:bg-orange-400 hover:text-white hover:p-4 hover:rounded-[6px] hover:duration-300'>
+                    {items.label}
+                  </span>
+                ))
+
+                }
+               </Flex>
+                
               </div>
               {/* Other price ranges can go here */}
             </div>}
