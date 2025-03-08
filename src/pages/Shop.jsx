@@ -5,6 +5,8 @@ import Catagory from '../components/Catagory'
 import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
 import Pagination from '../components/Pagination';
+import { HiAdjustmentsHorizontal } from "react-icons/hi2";
+import { BsFillFilterSquareFill } from "react-icons/bs";
 
 const Shop = () => {
   const [show, setShow] = useState(false)
@@ -14,6 +16,8 @@ const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [priceRanges, setPriceRanges] = useState([]); 
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
+  const [showCount, setShowCount] = useState(36);
+
  
 
   useEffect(() => {
@@ -64,7 +68,9 @@ const Shop = () => {
     setSelectedCategory(null);  
   };
 
-
+  const handleShowCountChange = (e) => {
+    setShowCount(Number(e.target.value)); 
+  };
 
   const showCloth = () => {
     setCloth(!cloth)
@@ -198,9 +204,49 @@ const Shop = () => {
           </div>
         </div>
 
-        <div className='w-[75%] flex'>
+       
+
+        <div className='w-[75%] '>
+           {/* manubar section*/}
+        <div className='pb-[60px]' >
+        <Flex className=' items-center'>
+          <div>
+          <Flex className='items-center gap-x[20px]'>
+            <span className='w-[36px] h-[36px] cursor-pointer'><BsFillFilterSquareFill /></span>
+            <span className='w-[36px] h-[36px] cursor-pointer'><HiAdjustmentsHorizontal /></span>
+          </Flex>
+          </div>
+
+         <div className='pb-[40px]' >
+         <Flex className='items-center gap-x-[14px]'>
+            <span className='font-dm text-[16px] font-[400] text-primary ml-[500px]'>Sort by:</span>
+            <span><select name="" id="" className='font-dm text-[16px] font-[400] leading-[30px] text-primary py-[10px] pl-[21px] pr-[152px]'>
+              <option>Featured</option>
+              </select></span>
+          </Flex>
+         </div>
+
+          <div className='pb-[40px]'>
+          <Flex className='items-center gap-x-[14px]'>
+            <span className='font-dm text-[16px] font-[400] text-primary ml-[40px]'>Show::</span>
+            <span><select value={showCount} onChange={handleShowCountChange} name="" id="" className='font-dm text-[16px] font-[400] leading-[30px] text-primary py-[10px] pl-[21px] pr-[98px]'>
+              <option value={36}>36</option>
+              <option value={30}>30</option>
+              <option value={25}>25</option>
+              <option value={20}>20</option>
+              <option value={15}>15</option>
+              <option value={10}>10</option>
+              <option value={5}>5</option>
+              </select></span>
+          </Flex>
+          </div>
+        </Flex>
+        </div>
+          
           {/* Pagination component */}
-          <Pagination itemsPerPage={6} data={filteredProduct}/>
+          <div className=' flex'>
+          <Pagination itemsPerPage={showCount} data={filteredProduct}/>
+          </div>
         </div>
       </Flex>
     </Container>
