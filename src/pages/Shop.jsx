@@ -16,7 +16,7 @@ const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [priceRanges, setPriceRanges] = useState([]); 
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
-  const [showCount, setShowCount] = useState(36);
+  const [showCount, setShowCount] = useState(5);
 
  
 
