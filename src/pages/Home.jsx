@@ -26,6 +26,10 @@ import productten from '../assets/image08.png'
 import eleven from '../assets/image09.png'
 import producttwelve from '../assets/image10.png'
 
+import "slick-carousel/slick/slick.css";
+import Slider from 'react-slick'
+import PreviousArrow from '../components/PreviousArrow'
+import NextArows from '../components/NextArows'
 
 
 
@@ -34,6 +38,16 @@ import producttwelve from '../assets/image10.png'
 
 
 export const Home = () => {
+
+  var settings = {
+    arrows:true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    nextArrow:<NextArows/>,
+    prevArrow:<PreviousArrow/>,
+  };
   return (
  <>
   
@@ -88,7 +102,33 @@ export const Home = () => {
    </section>
 
    {/* newArrival section start here */}
-   <section>
+
+  <Container>
+  <CommonHeading text='New Arrivals'/>
+  <div className='gap-x-[40px] pt-[48px]'>
+  <Slider {...settings}>
+      <div>
+      <ProductList src={productOne} text='Basic Crew Neck Tee'price='$44.00' color='Black'/>
+      </div>
+      <div>
+      <ProductList src={producttwo} text='Basic Crew Neck Tee'price='$44.00' color='Black'/>
+      </div>
+      <div>
+      <ProductList src={productthree} text='Basic Crew Neck Tee'price='$44.00' color='Black'/>
+      </div>
+      <div>
+      <ProductList src={productfour} text='Basic Crew Neck Tee'price='$44.00' color='Black'/>
+      </div>
+     
+    </Slider>
+    
+    
+  </div>
+  
+  </Container>
+
+
+   {/* <section>
     <Container>
        <div>
           <CommonHeading text='New Arrivals'/>
@@ -101,7 +141,7 @@ export const Home = () => {
          </Flex>
         </div>
     </Container>
-   </section>
+   </section> */}
 
   
     <section className='pt-[118px]'>
