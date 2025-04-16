@@ -7,9 +7,12 @@ import LogoImage from '../assets/Logo.png'
 import List from '../components/List'
 import { Link } from 'react-router-dom'
 
+
 export const Navbar = () => {
   return (
-   <nav className='bg-[#FFFFFF] p-[31px]'>
+   <>
+
+<nav className='bg-[#FFFFFF] p-[31px]'>
    <Container>
     <Flex className='justify-between items-center'>
     <div className='w-4/12'>
@@ -27,5 +30,6 @@ export const Navbar = () => {
     </Flex>
    </Container>
    </nav>
+</>
   )
 }

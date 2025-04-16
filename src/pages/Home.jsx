@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from '../components/Image'
 import bannerImage from '../assets/banner.jpg'
 import { Link } from 'react-router-dom'
@@ -12,10 +12,10 @@ import imageTwo from '../assets/Ad_2.jpg'
 import imageThree from '../assets/Ad_3.png'
 import CommonHeading from '../components/CommonHeading'
 import ProductList from '../components/ProductList'
-import productOne from '../assets/productone.jpg'
-import producttwo from '../assets/image02 (1).png'
-import productthree from '../assets/image03.jpg'
-import productfour from '../assets/image003.jpg'
+// import productOne from '../assets/productone.jpg'
+// import producttwo from '../assets/image02 (1).png'
+// import productthree from '../assets/image03.jpg'
+// import productfour from '../assets/image003.jpg'
 import productfive from '../assets/image04.png'
 import productsix from '../assets/image005.png'
 import productseven from '../assets/image06.png'
@@ -25,6 +25,13 @@ import productnine from '../assets/image07.png'
 import productten from '../assets/image08.png'
 import eleven from '../assets/image09.png'
 import producttwelve from '../assets/image10.png'
+
+import bannerImageTwo from '../assets/bannerImage2.png'
+import bannerimagethree from '../assets/bannerImage3.png'
+import bannerimageFour from '../assets/bannerImage4.png'
+import bannerImageFive from '../assets/bannerImage5.png'
+import bannerimageSeven from '../assets/bannerImage7.png'
+
 
 import "slick-carousel/slick/slick.css";
 import Slider from 'react-slick'
@@ -39,7 +46,19 @@ import NextArows from '../components/NextArows'
 
 export const Home = () => {
 
-  var settings = {
+const [data,setData] =useState([])
+
+
+useEffect(()=>{
+  fetch('https://dummyjson.com/products')
+  .then(res=>res.json())
+  .then(res=>setData(res.products))
+
+},[])
+
+
+
+  var productSettings = {
     arrows:true,
     infinite: true,
     speed: 500,
@@ -48,11 +67,48 @@ export const Home = () => {
     nextArrow:<NextArows/>,
     prevArrow:<PreviousArrow/>,
   };
+
+  var bannerSettings = {
+    arrows: false, 
+    infinite: true, 
+    speed: 500, 
+    slidesToShow: 1, 
+    slidesToScroll: 1,
+    autoplay: true, 
+    autoplaySpeed: 2000 
+  };
   return (
  <>
   
    <>
-   <Link to='https://www.facebook.com/'><Image className='w-full'  src={bannerImage}/></Link>
+  <section>
+  <Slider {...bannerSettings}>
+      <div>
+      <Link to='#'><Image className='w-full h-[850px]' src={bannerImage}/></Link>
+      </div>
+      <div>
+      <Link to='#'><Image className='w-full h-[850px]'  src={bannerImageTwo}/></Link>
+      </div>
+
+      <div>
+      <Link to='#'><Image className='w-full h-[850px]'  src={bannerimagethree}/></Link>
+      </div>
+
+      <div>
+      <Link to='#'><Image className='w-full h-[850px]'  src={bannerimageFour}/></Link>
+      </div>
+
+      <div>
+      <Link to='#'><Image className='w-full h-[850px]'  src={bannerImageFive}/></Link>
+      </div>
+
+     <div>
+      <Link to='#'><Image className='w-full h-[850px]'  src={bannerimageSeven}/></Link>
+      </div>
+     
+     
+    </Slider>
+  </section>
     <section className='bg-[#F0F0F0] py-[22px] border border-b-[#F0F0F0]'>
       <Container>
         <Flex className='justify-between'>
@@ -106,19 +162,14 @@ export const Home = () => {
   <Container>
   <CommonHeading text='New Arrivals'/>
   <div className='gap-x-[40px] pt-[48px]'>
-  <Slider {...settings}>
-      <div>
-      <ProductList src={productOne} text='Basic Crew Neck Tee'price='$44.00' color='Black'/>
-      </div>
-      <div>
-      <ProductList src={producttwo} text='Basic Crew Neck Tee'price='$44.00' color='Black'/>
-      </div>
-      <div>
-      <ProductList src={productthree} text='Basic Crew Neck Tee'price='$44.00' color='Black'/>
-      </div>
-      <div>
-      <ProductList src={productfour} text='Basic Crew Neck Tee'price='$44.00' color='Black'/>
-      </div>
+  <Slider {...productSettings}>
+  {
+           data.map((value,index)=>(
+            <ProductList key={index} src={value.thumbnail} text={value.title} price={`$${value.price}`} color={value.rating}/>
+
+           ))
+       }
+     
      
     </Slider>
     
