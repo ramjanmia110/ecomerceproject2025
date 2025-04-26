@@ -7,15 +7,20 @@ import Image from '../components/Image';
 import imageOne from '../assets/Image_1.png'
 import Button from '../components/Button';
 import imagetwo from '../assets/productone.jpg'
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const About = () => {
+
+  let data=useSelector(state=>state.countNumber.previousvalue)
+  
   return (
     <section>
       <Container>
       <div className='pl-[157px] pt-[124px] pb-[136px]'>
       <h2 className='font-dm text-[49px] font-[700] text-secondary'>About</h2>
       <Flex className='items-center gap-x-2 cursor-pointer'>
-        <span className='font-dm text-[12px] font-[400] text-primary'> Home</span>
+        <span className='font-dm text-[12px] font-[400] text-primary'> <Link to={data === "Home" ? "/" :`${data}`}>{data}</Link></span>
         <IoIosArrowForward className=' text-[12px] font-[400] text-primary' />
         <span className='font-dm text-[12px] font-[400] text-primary'>About</span>
           

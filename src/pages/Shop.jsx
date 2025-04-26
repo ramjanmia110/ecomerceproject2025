@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Container } from '../components/Container'
 import Flex from '../components/Flex'
 import Catagory from '../components/Catagory'
-import { IoMdArrowDropup } from "react-icons/io";
+import { IoIosArrowForward, IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
 import Pagination from '../components/Pagination';
 import { HiAdjustmentsHorizontal } from "react-icons/hi2";
 import { BsFillFilterSquareFill } from "react-icons/bs";
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Shop = () => {
   const [show, setShow] = useState(false)
@@ -17,6 +19,9 @@ const Shop = () => {
   const [priceRanges, setPriceRanges] = useState([]); 
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
   const [showCount, setShowCount] = useState(5);
+
+  let data1 =useSelector(state =>state.countNumber.previousvalue)
+  console.log(data1)
 
  
 
@@ -96,7 +101,8 @@ const Shop = () => {
       <div className='pt-[124px] pb-[125px]'>
         <h2 className='font-dm text-[49px] font-[700] text-secondary'>Products</h2>
         <Flex className='items-center gap-x-2 cursor-pointer'>
-          <span className='font-dm text-[12px] font-[400] text-primary'> Home</span>
+          <span className='font-dm text-[12px] font-[400] text-primary'>   <Link to={data1 === "Home" ? "/" : `/${data1}`}>{data1}</Link></span>
+          <IoIosArrowForward className=' text-[12px] font-[400] text-primary' />
           <span className='font-dm text-[12px] font-[400] text-primary'>Products</span>
         </Flex>
       </div> 

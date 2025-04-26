@@ -3,9 +3,23 @@ import Flex from './Flex'
 import { FaHeart } from "react-icons/fa6";
 import { LuRefreshCcw } from "react-icons/lu";
 import { IoCart } from "react-icons/io5";
+import { useDispatch } from 'react-redux';
+import { addCard } from '../slice/addToCard';
+
 
 
 const ProductList = ({src,text,price,color}) => {
+    let dispitch =useDispatch()
+    const addProduct =(()=>{
+        dispitch(addCard(
+            {
+                title:text,
+                price:price,
+                image:src,
+                quantity:1
+            }
+        )) 
+    })
   return (
     <div className='w-[370px] h-[465px] relative group'>
        <div>
@@ -27,7 +41,7 @@ const ProductList = ({src,text,price,color}) => {
                     <LuRefreshCcw className='cursor-pointer' />
                 </Flex>
                 <Flex className='items-center gap-x-[15px]'>
-                    <p className='font-dm text-[16px] font-[400] text-secondary'>Add to Cart</p>
+                    <p onClick={addProduct} className='font-dm text-[16px] font-[400] text-secondary'>Add to Cart</p>
                     <IoCart className='cursor-pointer' />
                 </Flex>
             </Flex>
