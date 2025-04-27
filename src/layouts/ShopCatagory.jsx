@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Container } from '../components/Container'
 import Flex from '../components/Flex'
-import { FaBarsStaggered } from "react-icons/fa6";
+import { FaBarsStaggered, FaMinus, FaPlus } from "react-icons/fa6";
 import { IoIosSearch } from "react-icons/io";
 import { IoPerson } from "react-icons/io5";
 import { IoMdArrowDropdown } from "react-icons/io";
@@ -50,7 +50,7 @@ const ShopCatagory = () => {
                {
 
                  isCartOpen &&
-                 <div className={`bg-blue-100 w-[600px] h-[690px] ml-10 mt-10 border-t-[10px] border-cyan-500 shadow-indigo-500/40 rounded-[16px] border-b-[5px] border-cyan-400 absolute top-[135px] right-0 z-30 ease-in duration-300  ${isCartOpen ? 'right-[20px]' : 'right-[-100%]'}`}>
+                 <div className={`bg-[#f7f8f9] w-[600px] h-[480px] ml-10 mt-10 border-t-[10px] border-cyan-500 shadow-indigo-500/40 rounded-[16px] border-b-[5px] border-cyan-400 absolute top-[157px] right-0 z-30 ease-in duration-300  ${isCartOpen ? 'right-[70px]' : 'right-[-100%]'}`}>
                  <div className='flex items-center'>
                  <RxCross2 onClick={cartResult} className='text-[24px] ml-4 text-orange-500 cursor-pointer'/>
                  <h2 className='mx-auto text-[24px] my-2 border-b-2 border-blue-400 rounded-[16px] p-1 text-orange-600 font-[600] uppercase font-sans'>Cart Result</h2>
@@ -63,7 +63,7 @@ const ShopCatagory = () => {
                    <li>Sub-Total</li>
                  </ul>
 
-              <div className='overflow-auto h-[500px]'>
+              <div className='overflow-auto h-[320px]'>
               {
                   cartData.map((item, index) => (
                     
@@ -76,10 +76,22 @@ const ShopCatagory = () => {
                         )}
                        
                       </li>
-                      <li className='text-center w-[150px]'>{item.title}</li>
-                      <li className='text-center w-[80px]'>{item.price}</li>
-                      <li className='text-center w-[80px]'>{item.quantity}</li>
-                      <li className='text-center w-[80px]'>{item.price *item.quantity}</li>
+                      <li className='text-center w-[150px] font-dm text-blue-600'>{item.title}</li>
+                      <li className='text-center w-[80px] font-dm text-[17px] text-orange-600'>{item.price}</li>
+                    
+                     <div className='flex items-center justify-center border border-orange-400 rounded-[6px] bg-white p-2'>
+                     <FaMinus className='text-[20px] text-orange-400 cursor-pointer' />
+                     <li className='text-center w-[80px] text-orange-500 text-[18px] font-[700]'>{item.quantity}</li>
+                     <FaPlus className='text-[18px] text-orange-400 cursor-pointer' />    
+                     </div>
+                    
+                  
+                     
+                      <li className='text-center w-[80px] font-dm text-[18px] text-orange-600'>
+                       ${parseFloat(item.price?.toString().replace(/[^\d.]/g, '')) * Number(item.quantity)}
+                      </li>
+                               
+                     
                       
                     </ul>
                   ))
