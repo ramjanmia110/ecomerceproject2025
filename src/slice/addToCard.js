@@ -18,18 +18,33 @@ export const addToCard = createSlice({
 
        }
  
+ },
 
-       
-        
-        
-       
-    
+ increment:(state,action)=>{
+  state.initialValue.map((item)=>{
+   if(item.title ===action.payload.title){
+    item.quantity+=1
+   }
+  })
+
+ },
+
+ decrement:(state,action)=>{
+  state.initialValue.map((item)=>{
+    if(item.title ===action.payload.title){
+     
+
+     if(item.quantity >1){
+      item.quantity-=1
+     }
     }
+   })
+ }
     
   },
 })
 
 
-export const {addCard} = addToCard.actions
+export const {addCard,increment,decrement} = addToCard.actions
 
 export default addToCard.reducer

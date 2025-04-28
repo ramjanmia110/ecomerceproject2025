@@ -9,14 +9,24 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { RxCross2 } from "react-icons/rx";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { decrement, increment } from '../slice/addToCard';
 
 const ShopCatagory = () => {
   const cartData =useSelector(sate=>sate.cardNumber.initialValue)
+  const dispitch =useDispatch()
   const [isCartOpen, setIsCartOpen] =useState(false)
 
   const cartResult =(()=>{
     setIsCartOpen(!isCartOpen)
+  })
+
+  const dataIncrement=((item)=>{
+    dispitch(increment(item))
+  })
+
+  const dataDecrement=((item)=>{
+    dispitch(decrement(item))
   })
   return (
     <div>
@@ -80,15 +90,15 @@ const ShopCatagory = () => {
                       <li className='text-center w-[80px] font-dm text-[17px] text-orange-600'>{item.price}</li>
                     
                      <div className='flex items-center justify-center border border-orange-400 rounded-[6px] bg-white p-2'>
-                     <FaMinus className='text-[20px] text-orange-400 cursor-pointer' />
+                     <FaMinus onClick={()=>dataDecrement(item)} className='text-[20px] text-orange-400 cursor-pointer' />
                      <li className='text-center w-[80px] text-orange-500 text-[18px] font-[700]'>{item.quantity}</li>
-                     <FaPlus className='text-[18px] text-orange-400 cursor-pointer' />    
+                     <FaPlus onClick={()=>dataIncrement(item)}  className='text-[18px] text-orange-400 cursor-pointer' />    
                      </div>
                     
                   
                      
                       <li className='text-center w-[80px] font-dm text-[18px] text-orange-600'>
-                       ${parseFloat(item.price?.toString().replace(/[^\d.]/g, '')) * Number(item.quantity)}
+                      ${(parseFloat(item.price?.toString().replace(/[^\d.]/g, '')) * Number(item.quantity)).toFixed(2)}
                       </li>
                                
                      
