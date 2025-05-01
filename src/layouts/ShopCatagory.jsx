@@ -10,7 +10,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from 'react-redux';
-import { decrement, increment } from '../slice/addToCard';
+import { decrement, deleteProduct, increment } from '../slice/addToCard';
 
 const ShopCatagory = () => {
   const cartData =useSelector(sate=>sate.cardNumber.initialValue)
@@ -19,6 +19,7 @@ const ShopCatagory = () => {
 
   const cartResult =(()=>{
     setIsCartOpen(!isCartOpen)
+    
   })
 
   const dataIncrement=((item)=>{
@@ -27,6 +28,10 @@ const ShopCatagory = () => {
 
   const dataDecrement=((item)=>{
     dispitch(decrement(item))
+  })
+
+  const deleteItem =((item)=>{
+    dispitch(deleteProduct(item))
   })
   return (
     <div>
@@ -66,45 +71,52 @@ const ShopCatagory = () => {
                  <h2 className='mx-auto text-[24px] my-2 border-b-2 border-blue-400 rounded-[16px] p-1 text-orange-600 font-[600] uppercase font-sans'>Cart Result</h2>
                  </div>
                  <ul className='flex justify-evenly border-b-4 border-orange-400 p-4  text-[20px] rounded-b-[16px] bg-slate-50 text-orange-500 font-[700] font-dm'>
-                   <li>Image</li>
+                   <li>Action</li>
                    <li>Product Name</li>
                    <li>price</li>
                    <li>Quantity</li>
                    <li>Sub-Total</li>
                  </ul>
 
-              <div className='overflow-auto h-[320px]'>
+              <div className='flex flex-col items-center overflow-auto h-[320px]'>
               {
-                  cartData.map((item, index) => (
+                 cartData.length>0 ? cartData.map((item, index) => (
                     
-                    <ul key={index} className='flex justify-evenly items-center border-b-2 border-orange-300 p-4 '>
-                      <li className='w-[80px] h-[80px] flex justify-center items-center'>
-                        {item.image ? (
-                          <img src={item.image} alt={item.title} className='w-[50px] h-[50px] object-cover rounded' />
-                        ) : (
-                          <p>No Image</p>
-                        )}
-                       
-                      </li>
-                      <li className='text-center w-[150px] font-dm text-blue-600'>{item.title}</li>
-                      <li className='text-center w-[80px] font-dm text-[17px] text-orange-600'>{item.price}</li>
-                    
-                     <div className='flex items-center justify-center border border-orange-400 rounded-[6px] bg-white p-2'>
-                     <FaMinus onClick={()=>dataDecrement(item)} className='text-[20px] text-orange-400 cursor-pointer' />
-                     <li className='text-center w-[80px] text-orange-500 text-[18px] font-[700]'>{item.quantity}</li>
-                     <FaPlus onClick={()=>dataIncrement(item)}  className='text-[18px] text-orange-400 cursor-pointer' />    
-                     </div>
-                    
+                  <ul key={index} className='flex justify-evenly gap-x-3 items-center border-b-2 border-orange-300 p-4 '>
+                     <li>
+                    <button  className="relative w-4 h-4 group text-[10px]" onClick={()=>deleteItem(item)}>
+                    <span className="absolute top-1/2 left-0 w-full h-[2px] bg-orange-500 group-hover:bg-red-500 rotate-45 transform origin-center transition-all duration-300"></span>
+                    <span className="absolute top-1/2 left-0 w-full h-[2px] bg-orange-500 group-hover:bg-red-500 -rotate-45 transform origin-center transition-all duration-300"></span>
+                   </button>
+                    </li>
+                    {/* <li className='w-[80px] h-[80px] flex justify-center items-center'>
+                      {item.image ? (
+                        <img src={item.image} alt={item.title} className='w-[50px] h-[50px] object-cover rounded' />
+                      ) : (
+                        <p>No Image</p>
+                      )}
+                     
+                    </li> */}
+                   
+                    <li className='text-center w-[150px] font-dm text-blue-600'>{item.title}</li>
+                    <li className='text-center w-[80px] font-dm text-[17px] text-orange-600'>{item.price}</li>
                   
-                     
-                      <li className='text-center w-[80px] font-dm text-[18px] text-orange-600'>
-                      ${(parseFloat(item.price?.toString().replace(/[^\d.]/g, '')) * Number(item.quantity)).toFixed(2)}
-                      </li>
-                               
-                     
-                      
-                    </ul>
-                  ))
+                   <div className='flex items-center justify-center border border-orange-400 rounded-[6px] bg-white p-2 w-[16%]'>
+                   <FaMinus onClick={()=>dataDecrement(item)} className='text-[20px] text-orange-400 cursor-pointer' />
+                   <li className='text-center w-[80px] text-orange-500 text-[18px] font-[700]'>{item.quantity}</li>
+                   <FaPlus onClick={()=>dataIncrement(item)}  className='text-[18px] text-orange-400 cursor-pointer' />    
+                   </div>
+                  
+                
+                   
+                    <li className='text-center w-[80px] font-dm text-[18px] text-orange-600'>
+                    ${(parseFloat(item.price?.toString().replace(/[^\d.]/g, '')) * Number(item.quantity)).toFixed(2)}
+                    </li>
+                             
+                   
+                    
+                  </ul>
+                )) :<div className='mt-[80px]'><h1 className='text-[30px] text-center font-mono text-orange-500 mt-2'>Product Emty</h1><span className='text-[16px] font-dm text-red-600'>Please Order Any Type Of Product</span></div>
                  }
               </div>
 
