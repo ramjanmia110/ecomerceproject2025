@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container } from '../components/Container'
 import Flex from '../components/Flex'
 import { FaBarsStaggered, FaMinus, FaPlus } from "react-icons/fa6";
@@ -30,9 +30,24 @@ const ShopCatagory = () => {
     dispitch(decrement(item))
   })
 
+  const totalItems = cartData.reduce((acc, item) => acc + item.quantity, 0);
   const deleteItem =((item)=>{
     dispitch(deleteProduct(item))
   })
+
+  const [total,setTotal] =useState(0)
+
+  useEffect(() => {
+    let total = 0;
+    cartData.forEach((item) => {
+      const price = parseFloat(item.price?.toString().replace(/[^\d.]/g, '')) || 0;
+      const quantity = Number(item.quantity) || 0;
+      total += price * quantity;
+    });
+  
+    
+    setTotal(total.toFixed(2));
+  }, [cartData]);
   return (
     <div>
         <section className='bg-third py-[25px]'>
@@ -59,7 +74,17 @@ const ShopCatagory = () => {
                            <Link to='login'> <IoPerson className='w-[15px] text-secondary cursor-pointer' /></Link>
                             <IoMdArrowDropdown className='w-[15px] text-secondary cursor-pointer' />
                             </span>
-                            <FaShoppingCart onClick={cartResult} className='w-[15px] text-secondary cursor-pointer relative group' />
+                            {/* <FaShoppingCart onClick={cartResult} className='w-[15px] text-secondary cursor-pointer relative group' /> */}
+                            <div className="relative">
+  <FaShoppingCart onClick={cartResult} className='w-[15px] text-secondary cursor-pointer relative group' />
+  {
+    totalItems > 0 && (
+      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+        {totalItems}
+      </span>
+    )
+  }
+</div>
                 </Flex>
 
                {
@@ -117,6 +142,11 @@ const ShopCatagory = () => {
                     
                   </ul>
                 )) :<div className='mt-[80px]'><h1 className='text-[30px] text-center font-mono text-orange-500 mt-2'>Product Emty</h1><span className='text-[16px] font-dm text-red-600'>Please Order Any Type Of Product</span></div>
+               
+                 }
+                 {
+                  cartData.length > 0 && 
+                  <h1 className='font-dm text-[24px] inline-block border border-orange-500 mt-4 ml-[370px] px-4 py-1 rounded-[6px] text-orange-600'>Total : ${total}</h1>
                  }
               </div>
 
