@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 export const addToCard = createSlice({
   name: 'addToCard',
   initialState: {
-   initialValue:[]
+  
+  initialValue:localStorage.getItem('cart')? JSON.parse(localStorage.getItem('cart')):[]
   },
   reducers: {
     addCard: (state,action) => {
@@ -17,6 +18,9 @@ export const addToCard = createSlice({
         state.initialValue.push({...action.payload,quantity:1})
 
        }
+
+
+       localStorage.setItem('cart',JSON.stringify(state.initialValue))
  
  },
 
@@ -26,6 +30,8 @@ export const addToCard = createSlice({
     item.quantity+=1
    }
   })
+
+  localStorage.setItem('cart',JSON.stringify(state.initialValue))
 
  },
 
@@ -39,6 +45,8 @@ export const addToCard = createSlice({
      }
     }
    })
+
+   localStorage.setItem('cart',JSON.stringify(state.initialValue))
  },
 
  deleteProduct:(state,action)=>{
@@ -49,6 +57,8 @@ export const addToCard = createSlice({
       state.initialValue.splice(index,1)
     }
   })
+
+  localStorage.setItem('cart',JSON.stringify(state.initialValue))
 
  }
     
