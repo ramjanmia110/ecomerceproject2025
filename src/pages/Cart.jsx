@@ -37,7 +37,7 @@ const Cart = () => {
           <li className='ml-[35px]'>Image</li>
           <li className='text-secondary text-[16px] font-dm ml-[20px]'>product</li>
           <li className='text-secondary text-[16px] font-dm'>$44.00</li>
-          <li className='flex items-center justify-center gap-x-4 border border-[#F0F0F0] w-[90px] h-[36px]'>
+          <li className='flex items-center justify-center gap-x-4 border border-[#F0F0F0] w-[100px] h-[36px]'>
           <HiMinusSm className='text-[#767676] text-[16px] cursor-pointer' />
           <span className='text-[#767676] text-[16px]' >2</span>
           <LuPlus className='text-[#767676] text-[16px] cursor-pointer'  />
