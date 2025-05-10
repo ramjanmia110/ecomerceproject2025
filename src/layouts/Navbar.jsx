@@ -36,6 +36,7 @@ export const Navbar = () => {
         <Link to='about'onClick={()=>changeItem('About')}><List text='About'/></Link>
         <Link to='contact'onClick={()=>changeItem('Contacts')}><List text='Contacts'/></Link>
        <Link to='products'onClick={()=>changeItem('Products')}> <List text='Products'/></Link>
+       
       </ul>
     </div>
     </Flex>
