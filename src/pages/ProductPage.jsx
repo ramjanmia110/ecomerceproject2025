@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container } from '../components/Container'
 import Flex from '../components/Flex'
 import Image from '../components/Image'
@@ -18,6 +18,25 @@ import { RiShare2Line } from 'react-icons/ri'
 
 
 const ProductPage = () => {
+  // const [description,setDescription] =useState(false)
+  // const [addtional,setAdditional] =useState(false)
+  // const [review,setReview] =useState(false)
+
+  // const descriptionBtn =(()=>{
+  //   setDescription(!description)
+  // })
+
+  // const addtionalInfo =(()=>{
+  //   setAdditional(!addtional)
+
+  // })
+
+  // const reviewSection =(()=>{
+  //   setReview(!review)
+
+  // })
+
+    const [activeTab, setActiveTab] = useState('description')
   return (
    <>
    <section className='pt-[150px] pb-12'>
@@ -114,18 +133,23 @@ const ProductPage = () => {
    <div className='my-14'>
     <div className='pt-[24px] border-b border-gray-200 w-full pb-[24px]'>
       <Flex className='items-center gap-x-5'>
-      <span className='font-dm font-[700] text-[20px] text-gray-500 cursor-pointer'>Description</span>
-      <span className='font-dm font-[700] text-[20px] text-gray-500 cursor-pointer'>Additional information</span>
-      <span className='font-dm font-[700] text-[20px] text-gray-500 cursor-pointer'>Reviews (1)</span>
+      <span onClick={() => setActiveTab('description')} className={`font-dm font-[700] text-[20px] text-gray-500 cursor-pointer ${ activeTab === 'description' ? 'text-black' : 'text-gray-500'}`}>Description</span>
+      <span onClick={() => setActiveTab('additional')} className={`font-dm font-[700] text-[20px] text-gray-500 cursor-pointer ${activeTab === 'additional' ? 'text-black' : 'text-gray-500'}`}>Additional information</span>
+      <span onClick={() => setActiveTab('reviews')} className={`font-dm font-[700] text-[20px] text-gray-500 cursor-pointer ${activeTab === 'reviews' ? 'text-black' : 'text-gray-500'}`}>Reviews (1)</span>
     </Flex>
     </div>
 
-    <div>
+    {
+      activeTab === 'description' &&
+      <div>
       <p className='font-dm font-[400] text-[16px] text-secondary leading-[30px] pt-[14px]'>Quisque varius diam vel metus mattis, id aliquam diam rhoncus. Proin vitae magna in dui finibus malesuada et at nulla. Morbi elit ex, viverra vitae ante vel, blandit feugiat ligula. Fusce fermentum iaculis nibh, at sodales leo maximus a. Nullam ultricies sodales nunc, in pellentesque lorem mattis quis. Cras imperdiet est in nunc tristique lacinia. Nullam aliquam mauris eu accumsan tincidunt. Suspendisse velit ex, aliquet vel ornare vel, dignissim a tortor.<br></br><br></br>
 
 Morbi ut sapien vitae odio accumsan gravida. Morbi vitae erat auctor, eleifend nunc a, lobortis neque. Praesent aliquam dignissim viverra. Maecenas lacus odio, feugiat eu nunc sit amet, maximus sagittis dolor. Vivamus nisi sapien, elementum sit amet eros sit amet, ultricies cursus ipsum. Sed consequat luctus ligula. Curabitur laoreet rhoncus blandit. Aenean vel diam ut arcu pharetra dignissim ut sed leo. Vivamus faucibus, ipsum in vestibulum vulputate, lorem orci convallis quam, sit amet consequat nulla felis pharetra lacus. Duis semper erat mauris, sed egestas purus commodo vel.</p>
     </div>
-    <div className='my-2'>
+    }
+    {
+      activeTab === 'additional' &&
+      <div className='my-2'>
       <h4 className='my-4 font-dm text-[20px] font-[600]'>Additional information</h4>
           <table className="border border-gray-300 w-full text-left">
         <thead>
@@ -137,8 +161,11 @@ Morbi ut sapien vitae odio accumsan gravida. Morbi vitae erat auctor, eleifend n
        
       </table>
     </div>
+    }
     <div>
-      <div className=" mx-auto  text-gray-800">
+    {
+      activeTab === 'reviews' &&
+        <div className=" mx-auto  text-gray-800">
       {/* Average Rating */}
       <div className="mb-6">
         <h2 className="my-4 font-dm text-[20px] font-[400]">
@@ -230,6 +257,7 @@ Morbi ut sapien vitae odio accumsan gravida. Morbi vitae erat auctor, eleifend n
         </form>
       </div>
     </div>
+    }
     </div>
    </div>
 
