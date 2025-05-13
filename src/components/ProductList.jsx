@@ -5,6 +5,7 @@ import { LuRefreshCcw } from "react-icons/lu";
 import { IoCart } from "react-icons/io5";
 import { useDispatch } from 'react-redux';
 import { addCard } from '../slice/addToCard';
+import { Link } from 'react-router-dom';
 
 
 
@@ -21,6 +22,8 @@ const ProductList = ({src,text,price,color}) => {
         )) 
     })
   return (
+    <Link to={`/products/${text}`}>
+
     <div className='w-[370px] h-[465px] relative group'>
        <div>
        <p className='bg-secondary text-white px-[32px] py-[9px] absolute top-0 left-0 font-dm text-[14px] font-[700] ml-[20px] mt-[20px]'>New</p>
@@ -46,13 +49,16 @@ const ProductList = ({src,text,price,color}) => {
                 </Flex>
             </Flex>
         </div>
+     
         <Flex className='items-center justify-between'>
             <h4 className='font-dm font-[700] text-[20px] text-secondary'>{text}</h4>
             <p className='font-dm font-[400] text-[16px] text-primary'>{price}</p>
         </Flex>
         <span className='font-dm font-[400] text-[16px] text-primary'>{color}</span>
+   
      </div>
     </div>
+    </Link>
   )
 }
 

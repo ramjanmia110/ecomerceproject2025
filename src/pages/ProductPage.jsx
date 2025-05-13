@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container } from '../components/Container'
 import Flex from '../components/Flex'
 import Image from '../components/Image'
@@ -15,41 +15,39 @@ import { GoPlus } from 'react-icons/go'
 import { TbWorldSearch } from 'react-icons/tb'
 import { GiSelfLove } from 'react-icons/gi'
 import { RiShare2Line } from 'react-icons/ri'
+import { useParams } from 'react-router-dom'
 
 
 const ProductPage = () => {
-  // const [description,setDescription] =useState(false)
-  // const [addtional,setAdditional] =useState(false)
-  // const [review,setReview] =useState(false)
+const [activeTab, setActiveTab] = useState('description')
+const [data,setData] =useState([])
+const datatitle =useParams()
+console.log(datatitle.title)
 
-  // const descriptionBtn =(()=>{
-  //   setDescription(!description)
-  // })
+useEffect(()=>{
+  fetch('https://dummyjson.com/products')
+  .then(res=>res.json())
+  .then(res=>setData(res.products))
 
-  // const addtionalInfo =(()=>{
-  //   setAdditional(!addtional)
-
-  // })
-
-  // const reviewSection =(()=>{
-  //   setReview(!review)
-
-  // })
-
-    const [activeTab, setActiveTab] = useState('description')
+},[])
   return (
    <>
    <section className='pt-[150px] pb-12'>
     <Container>
   
-    <Flex className='gap-5'>
+  {
+    data
+    .filter((item) => item.title === datatitle.title)
+    .map((item,index)=>(
+      item.text ==datatitle.text &&
+       <Flex className='gap-5' key={index}>
     <div className='w-1/2'>
-    <Image src={imageOne }/>
+    <Image src={item.thumbnail}/>
 
     </div>
 
     <div className='w-1/2'>
-    <CommonHeading text='Short Dress With Knotted Skirt' className='font-[400] text-[26px]'/>
+    <CommonHeading text={item.title} className='font-[400] text-[26px]'/>
     <div className='pt-[24px]'>
       <Flex className='items-center gap-x-[37px]'>
         
@@ -62,8 +60,8 @@ const ProductPage = () => {
         </Flex>
         <span className='font-dm font-[400] text-[16px] text-secondary'>1 review</span>
       </Flex>
-      <h4 className='my-4 font-dm text-[20px] font-[600]'>$45.90</h4>
-      <p className='font-dm font-[400] text-[16px] text-primary leading-[30px] pt-[14px]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+      <h4 className='my-4 font-dm text-[20px] font-[600]'>$ {item.price}</h4>
+      <p className='font-dm font-[400] text-[16px] text-primary leading-[30px] pt-[14px]'>{item.description}
       </p>
     </div>
 
@@ -82,7 +80,7 @@ const ProductPage = () => {
       <span className='font-dm font-[400] text-[16px] text-secondary '>Clear</span>
     </Flex>
 
-    <h4 className='font-dm font-[600] text-[16px]  my-2 bg-green-50 inline-block text-green-600  px-10 py-1'>In Stock</h4>
+    <h4 className='font-dm font-[600] text-[16px]  my-2 bg-green-50 inline-block text-green-600  px-10 py-1'>In Stock : {item.stock}</h4>
 
     <div className='my-4'>
       <Flex className='gap-x-4'>
@@ -119,8 +117,8 @@ const ProductPage = () => {
 
     <div className='my-6'>
      
-      <h4 className='font-dm font-[400] text-[16px] text-gray-500 mb-2'>SKU : <span className='font-dm font-[400] text-[16px] text-secondary'>BE35VGRT</span></h4>
-      <h4 className='font-dm font-[400] text-[16px] text-gray-500'>Categories : <span className='font-dm font-[400] text-[16px] text-secondary'>Skirts, Women</span></h4>
+      <h4 className='font-dm font-[400] text-[16px] text-gray-500 mb-2'>SKU : <span className='font-dm font-[400] text-[16px] text-secondary'>{item.sku}</span></h4>
+      <h4 className='font-dm font-[400] text-[16px] text-gray-500'>Categories : <span className='font-dm font-[400] text-[16px] text-secondary'>{item.category}</span></h4>
     </div>
 
   
@@ -129,6 +127,9 @@ const ProductPage = () => {
 
     
     </Flex>
+    ))
+     
+  }
 
    <div className='my-14'>
     <div className='pt-[24px] border-b border-gray-200 w-full pb-[24px]'>
